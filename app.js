@@ -1020,10 +1020,29 @@ function LegsOpenTournament() {
       const isIncomplete = holesCompleted > 0 && holesCompleted < 18;
       const nextHole = holesCompleted === 18 ? 'Finished' : (currentHole + 1);
 
+      // Calculate position against par for holes completed
+      let parForHolesPlayed = 0;
+      for (let hole = 1; hole <= 18; hole++) {
+        if (playerScores[hole] && playerScores[hole] !== 'NR') {
+          const holeData = courseHoles.find(h => h.hole === hole);
+          if (holeData) {
+            parForHolesPlayed += holeData.par;
+          }
+        }
+      }
+      const grossVsPar = hasNR ? 'NR' : (holesCompleted === 0 ? 'E' :
+        (grossTotal - parForHolesPlayed === 0 ? 'E' :
+          (grossTotal - parForHolesPlayed > 0 ? `+${grossTotal - parForHolesPlayed}` : grossTotal - parForHolesPlayed)));
+      const netVsPar = hasNR ? 'NR' : (holesCompleted === 0 ? 'E' :
+        (netTotal - parForHolesPlayed === 0 ? 'E' :
+          (netTotal - parForHolesPlayed > 0 ? `+${netTotal - parForHolesPlayed}` : netTotal - parForHolesPlayed)));
+
       return {
         ...player,
         grossTotal: grossTotalDisplay,
         netTotal: netTotalDisplay,
+        grossVsPar,
+        netVsPar,
         stablefordTotal,
         playingHandicap,
         back9Gross: hasNR ? 'NR' : back9Gross,
@@ -2168,6 +2187,7 @@ function LegsOpenTournament() {
                     className: `px-2 py-1 rounded text-sm font-semibold transition-colors ${leaderboardSortBy === 'stableford' ? 'bg-white text-green-700' : 'hover:bg-green-600'}`
                   }, 'Stableford ▼')
                 ),
+                allScoresComplete && h('th', { className: 'p-3 text-center' }, 'Score'),
                 h('th', { className: 'p-3 text-center' }, 'Hole')
               )
             ),
@@ -2205,9 +2225,12 @@ function LegsOpenTournament() {
                     h('td', { className: 'p-3' }, player.name),
                     h('td', { className: 'p-3 text-center' }, player.handicap.toFixed(1)),
                     h('td', { className: 'p-3 text-center' }, player.playingHandicap),
-                    h('td', { className: 'p-3 text-center' }, player.grossTotal),
-                    h('td', { className: 'p-3 text-center font-bold' }, player.netTotal),
+                    h('td', { className: 'p-3 text-center' }, player.grossVsPar),
+                    h('td', { className: 'p-3 text-center font-bold' }, player.netVsPar),
                     h('td', { className: 'p-3 text-center' }, player.stablefordTotal),
+                    allScoresComplete && h('td', { className: 'p-3 text-center' },
+                      `${player.grossTotal}(${player.netTotal})`
+                    ),
                     h('td', { className: 'p-3 text-center' },
                       player.isIncomplete ?
                         h('span', { className: 'px-2 py-1 bg-yellow-500 text-white rounded text-sm font-bold' },
