@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Legs Open - Admin User Guide</title>
+    <style>
+        @page {
+            margin: 2cm;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            background: linear-gradient(135deg, #047857 0%, #10b981 100%);
+            color: white;
+            padding: 40px 20px;
+            margin: -20px -20px 30px -20px;
+            border-radius: 0 0 10px 10px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 42px;
+            font-weight: bold;
+        }
+
+        .header p {
+            margin: 10px 0 0 0;
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .pin-box {
+            background: #fef3c7;
+            border: 2px solid #f59e0b;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .pin-box h3 {
+            color: #92400e;
+            margin-top: 0;
+        }
+
+        .pin-code {
+            font-size: 36px;
+            font-weight: bold;
+            color: #92400e;
+            letter-spacing: 8px;
+            margin: 10px 0;
+        }
+
+        h2 {
+            color: #047857;
+            border-bottom: 3px solid #10b981;
+            padding-bottom: 10px;
+            margin-top: 40px;
+            page-break-after: avoid;
+        }
+
+        h3 {
+            color: #059669;
+            margin-top: 25px;
+            page-break-after: avoid;
+        }
+
+        .section {
+            margin: 25px 0;
+            page-break-inside: avoid;
+        }
+
+        .step {
+            background: #f0fdf4;
+            border-left: 4px solid #10b981;
+            padding: 15px;
+            margin: 15px 0;
+            page-break-inside: avoid;
+        }
+
+        .step h4 {
+            color: #047857;
+            margin-top: 0;
+        }
+
+        .note {
+            background: #dbeafe;
+            border-left: 4px solid #3b82f6;
+            padding: 12px;
+            margin: 15px 0;
+            page-break-inside: avoid;
+        }
+
+        .warning {
+            background: #fee2e2;
+            border-left: 4px solid #ef4444;
+            padding: 12px;
+            margin: 15px 0;
+            page-break-inside: avoid;
+        }
+
+        ul, ol {
+            margin: 10px 0;
+            padding-left: 30px;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        code {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #1f2937;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .feature-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 15px;
+            page-break-inside: avoid;
+        }
+
+        .feature-card h4 {
+            color: #047857;
+            margin-top: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            page-break-inside: avoid;
+        }
+
+        th, td {
+            border: 1px solid #e5e7eb;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #047857;
+            color: white;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background: #f9fafb;
+        }
+
+        .footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 2px solid #e5e7eb;
+            text-align: center;
+            color: #6b7280;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🏆 THE LEGS OPEN</h1>
+        <p>Administrator User Guide</p>
+    </div>
+
+    <div class="pin-box">
+        <h3>🔐 Admin PIN Code</h3>
+        <div class="pin-code">1991</div>
+        <p><strong>Keep this PIN confidential</strong> - it provides full administrative access to the system</p>
+    </div>
+
+    <h2>1. Getting Started</h2>
+
+    <div class="section">
+        <h3>1.1 Accessing the System</h3>
+        <div class="step">
+            <h4>Step 1: Open the Application</h4>
+            <p>Navigate to the application URL in your web browser.</p>
+        </div>
+
+        <div class="step">
+            <h4>Step 2: Enter Admin PIN</h4>
+            <p>When prompted, enter the admin PIN: <code>1991</code></p>
+            <p>This will grant you full administrative access to all features.</p>
+        </div>
+    </div>
+
+    <div class="note">
+        <strong>Note:</strong> As an admin, you have access to all tabs and can manage all aspects of the tournament system.
+    </div>
+
+    <h2>2. Managing Tournaments</h2>
+
+    <div class="section">
+        <h3>2.1 Creating a New Tournament</h3>
+        <div class="step">
+            <h4>Step 1: Navigate to Tournaments Tab</h4>
+            <p>Click on the <strong>TOURNAMENTS</strong> tab in the navigation menu.</p>
+        </div>
+
+        <div class="step">
+            <h4>Step 2: Click "Create Tournament"</h4>
+            <p>Click the green <strong>"Create Tournament"</strong> button in the top right.</p>
+        </div>
+
+        <div class="step">
+            <h4>Step 3: Fill in Tournament Details</h4>
+            <ul>
+                <li><strong>Tournament Name:</strong> e.g., "The Legs Open 2026"</li>
+                <li><strong>Year:</strong> Tournament year</li>
+                <li><strong>Start Date:</strong> When the tournament begins</li>
+                <li><strong>End Date:</strong> When the tournament ends</li>
+                <li><strong>Status:</strong> Choose from Upcoming, Active, or Completed</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h4>Step 4: Search for Golf Course (Optional)</h4>
+            <ul>
+                <li>Enter course name in the search box (minimum 3 characters)</li>
+                <li>Click <strong>"Search Courses"</strong></li>
+                <li>Select from search results</li>
+                <li>Choose a tee (e.g., Championship, Men's, Ladies')</li>
+                <li>Course details will be automatically populated</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h4>Step 5: Manual Course Entry (Alternative)</h4>
+            <p>If you can't find the course, manually enter:</p>
+            <ul>
+                <li>Course name</li>
+                <li>Slope rating (default: 113)</li>
+                <li>Course rating (default: 72)</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h4>Step 6: Save Tournament</h4>
+            <p>Click <strong>"Create Tournament"</strong> to save.</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>2.2 Setting the Active Tournament</h3>
+        <p>The active tournament is what users see by default when they log in.</p>
+        <div class="step">
+            <h4>To Set a Tournament as Active:</h4>
+            <ol>
+                <li>Go to the <strong>TOURNAMENTS</strong> tab</li>
+                <li>Find the tournament you want to activate</li>
+                <li>Click the <strong>"Set as Active"</strong> button</li>
+            </ol>
+        </div>
+
+        <div class="note">
+            <strong>Important:</strong> Only one tournament can be active at a time. Setting a new tournament as active will automatically deactivate the previous one.
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>2.3 Deleting a Tournament</h3>
+        <div class="warning">
+            <strong>⚠️ Warning:</strong> Deleting a tournament is permanent and will delete all associated data including groups, scores, and player assignments. This action cannot be undone!
+        </div>
+
+        <div class="step">
+            <h4>To Delete a Tournament:</h4>
+            <ol>
+                <li>Navigate to the <strong>TOURNAMENTS</strong> tab</li>
+                <li>Click the red <strong>"Delete"</strong> button (trash icon) on the tournament</li>
+                <li>Confirm the deletion in the popup dialog</li>
+            </ol>
+        </div>
+    </div>
+
+    <h2>3. Managing Course Details</h2>
+
+    <div class="section">
+        <h3>3.1 Editing Tournament Information</h3>
+        <div class="step">
+            <h4>Steps:</h4>
+            <ol>
+                <li>Select a tournament from the <strong>TOURNAMENTS</strong> tab</li>
+                <li>Navigate to the <strong>COURSE</strong> tab</li>
+                <li>Click <strong>"Edit Tournament"</strong></li>
+                <li>Modify tournament name, year, dates, or status</li>
+                <li>Click <strong>"Save Changes"</strong></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>3.2 Editing Course Information</h3>
+        <div class="step">
+            <h4>Steps:</h4>
+            <ol>
+                <li>On the <strong>COURSE</strong> tab, click <strong>"Edit Course"</strong></li>
+                <li>Update course name, slope rating, or course rating</li>
+                <li>Click <strong>"Save Changes"</strong></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>3.3 Editing Hole Details</h3>
+        <div class="step">
+            <h4>To Edit Par and Stroke Index:</h4>
+            <ol>
+                <li>On the <strong>COURSE</strong> tab, scroll to the hole details table</li>
+                <li>Click <strong>"Edit Holes"</strong></li>
+                <li>Click on any par or stroke index cell to edit</li>
+                <li>Enter new values</li>
+                <li>Click <strong>"Save Changes"</strong></li>
+            </ol>
+        </div>
+    </div>
+
+    <h2>4. Player Management</h2>
+
+    <div class="section">
+        <h3>4.1 Adding a New Player to the System</h3>
+        <div class="step">
+            <h4>Steps:</h4>
+            <ol>
+                <li>Go to the <strong>PLAYERS</strong> tab</li>
+                <li>Click <strong>"Add Player"</strong></li>
+                <li>Fill in player details:
+                    <ul>
+                        <li><strong>Name:</strong> Player's full name</li>
+                        <li><strong>Handicap:</strong> Current handicap (required)</li>
+                        <li><strong>CDH Number:</strong> Club Disability Handicap number (optional)</li>
+                        <li><strong>Bio:</strong> Player biography (optional)</li>
+                        <li><strong>Photo URL:</strong> Link to player photo (optional)</li>
+                    </ul>
+                </li>
+                <li>Click <strong>"Add Player"</strong></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>4.2 Viewing Player Profiles</h3>
+        <div class="step">
+            <h4>Steps:</h4>
+            <ol>
+                <li>Navigate to the <strong>PLAYERS</strong> tab</li>
+                <li>Click on any player card to view their full profile</li>
+                <li>View tournament history, including:
+                    <ul>
+                        <li>Final position (e.g., "Finished 3rd of 15 players")</li>
+                        <li>Gross and net scores</li>
+                        <li>Stableford points</li>
+                    </ul>
+                </li>
+                <li>Click <strong>"View Scorecard"</strong> to see hole-by-hole scores</li>
+            </ol>
+        </div>
+    </div>
+
+    <h2>5. Tournament Setup</h2>
+
+    <div class="section">
+        <h3>5.1 Adding Players to a Tournament</h3>
+
+        <div class="step">
+            <h4>Method 1: Add Existing Players</h4>
+            <ol>
+                <li>Select the tournament from <strong>TOURNAMENTS</strong> tab</li>
+                <li>Go to the <strong>SETUP</strong> tab</li>
+                <li>Scroll to "Add Existing Players" section</li>
+                <li>Click <strong>"Add"</strong> next to each player you want to include</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h4>Method 2: Create and Add New Player</h4>
+            <ol>
+                <li>On the <strong>SETUP</strong> tab, find "Add New Player" section</li>
+                <li>Enter player name and handicap</li>
+                <li>Click <strong>"Add Player"</strong></li>
+                <li>Player will be automatically added to the tournament</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>5.2 Creating Groups - Random Method</h3>
+        <div class="note">
+            <strong>Requirement:</strong> You need at least 4 players to create groups.
+        </div>
+
+        <div class="step">
+            <h4>Steps:</h4>
+            <ol>
+                <li>On the <strong>SETUP</strong> tab, find "Create Groups" section</li>
+                <li>Click <strong>"Random Groups"</strong></li>
+                <li>Players will be randomly shuffled into groups of 4</li>
+                <li>Each group is assigned:
+                    <ul>
+                        <li>A unique 4-digit PIN code</li>
+                        <li>A scorer (first player in the group)</li>
+                        <li>A group number</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>5.3 Creating Groups - Manual Method</h3>
+        <div class="step">
+            <h4>Steps:</h4>
+            <ol>
+                <li>On the <strong>SETUP</strong> tab, click <strong>"Manual Groups"</strong></li>
+                <li>You'll see an available players pool and group cards</li>
+                <li><strong>Drag and drop</strong> players from the pool into groups</li>
+                <li>For each group:
+                    <ul>
+                        <li>Enter a custom <strong>group name</strong> (e.g., "Morning Flight", "Championship Flight")</li>
+                        <li>Enter a <strong>tee time</strong> (e.g., "09:00")</li>
+                    </ul>
+                </li>
+                <li>Use <strong>"Add Group"</strong> or <strong>"Remove Group"</strong> buttons to adjust number of groups</li>
+                <li>When done, click <strong>"Save Groups"</strong></li>
+                <li>Click <strong>"Cancel"</strong> to discard changes</li>
+            </ol>
+        </div>
+
+        <div class="note">
+            <strong>Validation:</strong> The system will ensure all players are assigned to a group before allowing you to save.
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>5.4 Managing Group PINs</h3>
+        <p>Each group receives a unique 4-digit PIN code for score entry.</p>
+
+        <div class="step">
+            <h4>Viewing Group PINs:</h4>
+            <ol>
+                <li>On the <strong>SETUP</strong> tab, scroll to "Groups" section</li>
+                <li>Each group card displays its PIN code</li>
+                <li>Share these PINs with the respective group scorers</li>
+            </ol>
+        </div>
+
+        <div class="note">
+            <strong>Security:</strong> Group PINs are only visible to admins. Players with a group PIN can only enter scores for their own group.
+        </div>
+    </div>
+
+    <h2>6. Score Management</h2>
+
+    <div class="section">
+        <h3>6.1 Entering Scores</h3>
+        <div class="step">
+            <h4>Steps:</h4>
+            <ol>
+                <li>Navigate to the <strong>SCORING</strong> tab</li>
+                <li>Select a group from the dropdown</li>
+                <li>For each player and hole:
+                    <ul>
+                        <li>Enter the number of strokes</li>
+                        <li>Press Enter or Tab to move to next field</li>
+                    </ul>
+                </li>
+                <li>Scores are automatically saved</li>
+            </ol>
+        </div>
+
+        <div class="note">
+            <strong>Handicap Calculations:</strong> The system automatically calculates:
+            <ul>
+                <li>Playing handicap based on slope rating</li>
+                <li>Net scores (gross - handicap strokes per hole)</li>
+                <li>Stableford points</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>6.2 Understanding Score Display</h3>
+        <p>Score cells are color-coded for easy reading:</p>
+        <table>
+            <tr>
+                <th>Score Type</th>
+                <th>Color</th>
+                <th>Meaning</th>
+            </tr>
+            <tr>
+                <td>Eagle or better</td>
+                <td>Gold background</td>
+                <td>2+ under par</td>
+            </tr>
+            <tr>
+                <td>Birdie</td>
+                <td>Light green background</td>
+                <td>1 under par</td>
+            </tr>
+            <tr>
+                <td>Par</td>
+                <td>White background</td>
+                <td>Equal to par</td>
+            </tr>
+            <tr>
+                <td>Bogey</td>
+                <td>Light orange background</td>
+                <td>1 over par</td>
+            </tr>
+            <tr>
+                <td>Double bogey or worse</td>
+                <td>Light red background</td>
+                <td>2+ over par</td>
+            </tr>
+        </table>
+    </div>
+
+    <h2>7. Viewing Results</h2>
+
+    <div class="section">
+        <h3>7.1 Leaderboard</h3>
+        <div class="step">
+            <h4>Steps:</h4>
+            <ol>
+                <li>Go to the <strong>LEADERBOARD</strong> tab</li>
+                <li>View real-time standings sorted by net score</li>
+                <li>See player statistics:
+                    <ul>
+                        <li>Handicap and playing handicap</li>
+                        <li>Gross total</li>
+                        <li>Net total</li>
+                        <li>Stableford points</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <div class="note">
+            <strong>Medal Play Winner:</strong> Lowest net score (displayed with 🏆 icon)<br>
+            <strong>Stableford Winner:</strong> Highest stableford points (displayed with 🥇 icon)
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>7.2 Tournament History</h3>
+        <div class="step">
+            <h4>Steps:</h4>
+            <ol>
+                <li>Navigate to the <strong>HISTORY</strong> tab</li>
+                <li>View all completed tournaments</li>
+                <li>See winners and final standings for each tournament</li>
+            </ol>
+        </div>
+    </div>
+
+    <h2>8. System Features</h2>
+
+    <div class="feature-grid">
+        <div class="feature-card">
+            <h4>🔄 Auto-Save</h4>
+            <p>Scores are automatically saved as you enter them. No need to click a save button.</p>
+        </div>
+
+        <div class="feature-card">
+            <h4>📊 Real-Time Updates</h4>
+            <p>Data refreshes every 5 seconds to show the latest scores and standings.</p>
+        </div>
+
+        <div class="feature-card">
+            <h4>🎯 Stroke Index</h4>
+            <p>Handicap strokes are automatically applied based on hole difficulty.</p>
+        </div>
+
+        <div class="feature-card">
+            <h4>🏌️ Multiple Formats</h4>
+            <p>Supports both Medal Play (net score) and Stableford scoring.</p>
+        </div>
+    </div>
+
+    <h2>9. Tips & Best Practices</h2>
+
+    <div class="section">
+        <h3>📋 Tournament Setup Checklist</h3>
+        <ol>
+            <li>✅ Create tournament with correct dates and course details</li>
+            <li>✅ Set tournament as "Active" for current play</li>
+            <li>✅ Add all participating players</li>
+            <li>✅ Create groups (random or manual with tee times)</li>
+            <li>✅ Note and share group PIN codes with scorers</li>
+            <li>✅ Verify course hole details (par and stroke index)</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <h3>⚠️ Important Reminders</h3>
+        <ul>
+            <li><strong>Active Tournament:</strong> Always displays by default. Only one can be active at a time.</li>
+            <li><strong>Group PINs:</strong> Keep a record of group PINs to share with players.</li>
+            <li><strong>Data Backups:</strong> Tournament deletion is permanent - ensure you have backups if needed.</li>
+            <li><strong>Player Handicaps:</strong> Update player handicaps before adding them to a tournament.</li>
+            <li><strong>Manual Groups:</strong> All players must be assigned to a group before saving.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h3>🔧 Troubleshooting</h3>
+        <table>
+            <tr>
+                <th>Issue</th>
+                <th>Solution</th>
+            </tr>
+            <tr>
+                <td>Can't see a tournament</td>
+                <td>Make sure it's set as "Active" or manually select it from the Tournaments tab</td>
+            </tr>
+            <tr>
+                <td>Scores not saving</td>
+                <td>Check internet connection. Data auto-saves every few seconds.</td>
+            </tr>
+            <tr>
+                <td>Can't create groups</td>
+                <td>Ensure you have at least 4 players added to the tournament</td>
+            </tr>
+            <tr>
+                <td>Wrong course details</td>
+                <td>Use Edit Course button on Course tab to update information</td>
+            </tr>
+            <tr>
+                <td>Player already added error</td>
+                <td>Check if player is already in the tournament player list</td>
+            </tr>
+        </table>
+    </div>
+
+    <h2>10. Quick Reference</h2>
+
+    <div class="section">
+        <h3>Admin PIN</h3>
+        <div class="pin-box">
+            <div class="pin-code">1991</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>Tab Overview</h3>
+        <table>
+            <tr>
+                <th>Tab</th>
+                <th>Purpose</th>
+            </tr>
+            <tr>
+                <td><strong>TOURNAMENTS</strong></td>
+                <td>Create, view, activate, and delete tournaments</td>
+            </tr>
+            <tr>
+                <td><strong>COURSE</strong></td>
+                <td>Edit tournament details, course info, and hole specifications</td>
+            </tr>
+            <tr>
+                <td><strong>SETUP</strong></td>
+                <td>Add players and create groups for the tournament</td>
+            </tr>
+            <tr>
+                <td><strong>SCORING</strong></td>
+                <td>Enter and view scores for all groups</td>
+            </tr>
+            <tr>
+                <td><strong>LEADERBOARD</strong></td>
+                <td>View live standings and winner information</td>
+            </tr>
+            <tr>
+                <td><strong>PLAYERS</strong></td>
+                <td>Manage player profiles and view tournament history</td>
+            </tr>
+            <tr>
+                <td><strong>HISTORY</strong></td>
+                <td>Review past tournament results and winners</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="footer">
+        <p><strong>The Legs Open Tournament Management System</strong></p>
+        <p>Administrator Guide - Version 1.0</p>
+        <p>For support or questions, contact your system administrator</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,248 @@
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&family=Open+Sans:wght@300;400;600;700&display=swap');
+
+/* Base Styles */
+body {
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Merriweather', serif;
+}
+
+/* Background Patterns */
+.hero-pattern {
+  background-image: linear-gradient(135deg, rgba(0, 70, 40, 0.95) 0%, rgba(0, 100, 60, 0.85) 100%),
+    url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><path d="M30 0l30 30-30 30L0 30z" fill="%23ffffff" fill-opacity="0.03"/></svg>');
+}
+
+/* General Effects */
+.trophy-gold {
+  background: linear-gradient(135deg, #aaaaa8 0%, #aaaaa 100%);
+}
+
+.classic-shadow {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.hover-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  vertical-align: middle;
+}
+
+/* ==================== COLOR THEME ==================== */
+/* Primary Colors */
+:root {
+  --color-primary: #047857;
+  --color-primary-light: #10b981;
+  --color-primary-dark: #065f46;
+
+  /* Winner Banners */
+  --color-medal-from: #fbbf24;
+  --color-medal-to: #f59e0b;
+  --color-stableford-from: #10b981;
+  --color-stableford-to: #059669;
+  --color-gross-from: #3b82f6;
+  --color-gross-to: #1d4ed8;
+
+  /* Score Colors */
+  --color-eagle: #910149;
+  --color-birdie: #E4002B;
+  --color-par: #B7B7B7;
+  --color-bogey: #08325A;
+  --color-double-bogey: #08325A;
+
+  /* Leaderboard */
+  --color-leaderboard-header: #06051e;
+  --color-leaderboard-row-hover: #f9fafb;
+  --color-leaderboard-expanded: #ffba00;
+  --color-leaderboard-border: #e5e7eb;
+
+  /* Scorecard */
+  --color-scorecard-hole-header: #06051e;
+  --color-scorecard-par-bg: #ffba00;
+  --color-scorecard-score-bg: #ffba00;
+  --color-scorecard-subtotal-bg: #ffba00;
+  --color-scorecard-total-bg: #047857;
+  --color-scorecard-total-text: #ffffff;
+}
+
+/* ==================== LEADERBOARD STYLES ==================== */
+/* Winner Banners */
+.winner-medal {
+  background: linear-gradient(135deg, var(--color-medal-from) 0%, var(--color-medal-to) 100%);
+}
+
+.winner-stableford {
+  background: linear-gradient(135deg, var(--color-stableford-from) 0%, var(--color-stableford-to) 100%);
+}
+
+.winner-gross {
+  background: linear-gradient(135deg, var(--color-gross-from) 0%, var(--color-gross-to) 100%);
+}
+
+/* Leaderboard Table */
+.leaderboard-header {
+  background-color: var(--color-leaderboard-header);
+}
+
+.leaderboard-row {
+  border-bottom: 1px solid var(--color-leaderboard-border);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.leaderboard-row:hover {
+  background-color: var(--color-leaderboard-row-hover);
+}
+
+.leaderboard-expanded-row {
+  background-color: var(--color-leaderboard-expanded);
+}
+
+/* Accordion Icon */
+.accordion-icon {
+  font-size: 1.25rem;
+  transition: transform 0.2s ease;
+  user-select: none;
+}
+
+/* ==================== SCORECARD STYLES ==================== */
+.scorecard-container {
+  padding: 1rem;
+}
+
+.scorecard-title {
+  font-weight: bold;
+  color: var(--color-primary);
+  margin-bottom: 0.75rem;
+}
+
+.scorecard-grid {
+  display: grid;
+  grid-template-columns: repeat(11, 1fr);
+  gap: 0.25rem;
+  text-align: center;
+  font-size: 0.875rem;
+}
+
+/* Scorecard Row Labels */
+.scorecard-label {
+  font-weight: bold;
+  font-size: 0.75rem;
+}
+
+/* Scorecard Headers (Hole numbers) */
+.scorecard-hole-number {
+  font-weight: bold;
+  color: var(--color-scorecard-hole-header);
+}
+
+.scorecard-subtotal-header {
+  font-weight: bold;
+  background-color: var(--color-scorecard-subtotal-bg);
+  padding: 0 0.25rem;
+}
+
+/* Par Row */
+.scorecard-par-label {
+  font-weight: bold;
+  font-size: 0.75rem;
+  background-color: var(--color-scorecard-par-bg);
+  padding: 0.25rem 0;
+}
+
+.scorecard-par-cell {
+  background-color: var(--color-scorecard-par-bg);
+  padding: 0.25rem 0;
+}
+
+.scorecard-par-subtotal {
+  background-color: var(--color-scorecard-subtotal-bg);
+  padding: 0.25rem 0.25rem;
+  font-weight: bold;
+}
+
+/* Score Row */
+.scorecard-score-label {
+  font-weight: bold;
+  font-size: 0.75rem;
+  background-color: var(--color-scorecard-score-bg);
+  padding: 0.25rem 0;
+}
+
+.scorecard-score-cell {
+  padding: 0.25rem 0;
+  font-weight: bold;
+}
+
+.scorecard-score-subtotal {
+  background-color: #bfdbfe;
+  padding: 0.25rem 0.25rem;
+  font-weight: bold;
+}
+
+/* Score Color Classes */
+.score-eagle {
+  background-color: var(--color-eagle);
+}
+
+.score-birdie {
+  background-color: var(--color-birdie);
+}
+
+.score-par {
+  background-color: var(--color-par);
+}
+
+.score-bogey {
+  background-color: var(--color-bogey);
+}
+
+.score-double-bogey {
+  background-color: var(--color-double-bogey);
+}
+
+.score-nr {
+  background-color: #fed7aa;
+  color: #ea580c;
+  font-weight: bold;
+}
+
+/* Total Score Display */
+.scorecard-total {
+  margin-top: 0.75rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.scorecard-total-badge {
+  background-color: var(--color-scorecard-total-bg);
+  color: var(--color-scorecard-total-text);
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  font-weight: bold;
+}
+
+/* Section Spacing */
+.scorecard-section {
+  margin-bottom: 1rem;
+}

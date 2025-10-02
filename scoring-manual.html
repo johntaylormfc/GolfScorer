@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Legs Open - Score Entry Guide</title>
+    <style>
+        @page {
+            margin: 2cm;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            background: linear-gradient(135deg, #047857 0%, #10b981 100%);
+            color: white;
+            padding: 40px 20px;
+            margin: -20px -20px 30px -20px;
+            border-radius: 0 0 10px 10px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 42px;
+            font-weight: bold;
+        }
+
+        .header p {
+            margin: 10px 0 0 0;
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .pin-box {
+            background: #fef3c7;
+            border: 2px solid #f59e0b;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .pin-box h3 {
+            color: #92400e;
+            margin-top: 0;
+        }
+
+        .pin-code {
+            font-size: 36px;
+            font-weight: bold;
+            color: #92400e;
+            letter-spacing: 8px;
+            margin: 10px 0;
+        }
+
+        h2 {
+            color: #047857;
+            border-bottom: 3px solid #10b981;
+            padding-bottom: 10px;
+            margin-top: 40px;
+            page-break-after: avoid;
+        }
+
+        h3 {
+            color: #059669;
+            margin-top: 25px;
+            page-break-after: avoid;
+        }
+
+        .section {
+            margin: 25px 0;
+            page-break-inside: avoid;
+        }
+
+        .step {
+            background: #f0fdf4;
+            border-left: 4px solid #10b981;
+            padding: 15px;
+            margin: 15px 0;
+            page-break-inside: avoid;
+        }
+
+        .step h4 {
+            color: #047857;
+            margin-top: 0;
+        }
+
+        .note {
+            background: #dbeafe;
+            border-left: 4px solid #3b82f6;
+            padding: 12px;
+            margin: 15px 0;
+            page-break-inside: avoid;
+        }
+
+        .warning {
+            background: #fee2e2;
+            border-left: 4px solid #ef4444;
+            padding: 12px;
+            margin: 15px 0;
+            page-break-inside: avoid;
+        }
+
+        .success {
+            background: #d1fae5;
+            border-left: 4px solid #10b981;
+            padding: 12px;
+            margin: 15px 0;
+            page-break-inside: avoid;
+        }
+
+        ul, ol {
+            margin: 10px 0;
+            padding-left: 30px;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        code {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #1f2937;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            page-break-inside: avoid;
+        }
+
+        th, td {
+            border: 1px solid #e5e7eb;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #047857;
+            color: white;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background: #f9fafb;
+        }
+
+        .footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 2px solid #e5e7eb;
+            text-align: center;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .color-demo {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🏆 THE LEGS OPEN</h1>
+        <p>Score Entry User Guide</p>
+    </div>
+
+    <div class="pin-box">
+        <h3>🔐 Your Group PIN</h3>
+        <p><strong>You will receive a unique 4-digit PIN from the tournament organizer</strong></p>
+        <p>This PIN allows you to enter scores for your group only</p>
+    </div>
+
+    <h2>1. Getting Started</h2>
+
+    <div class="section">
+        <h3>1.1 Logging In</h3>
+        <div class="step">
+            <h4>Step 1: Open the Application</h4>
+            <p>Navigate to the application URL in your web browser.</p>
+        </div>
+
+        <div class="step">
+            <h4>Step 2: Enter Your Group PIN</h4>
+            <p>When prompted, enter the 4-digit PIN provided by your tournament organizer.</p>
+            <p>This PIN is unique to your group and allows you to enter scores.</p>
+        </div>
+    </div>
+
+    <div class="note">
+        <strong>Note:</strong> As a scorer, you can access the Leaderboard and Scoring tabs only.
+    </div>
+
+    <h2>2. Viewing the Leaderboard</h2>
+
+    <div class="section">
+        <h3>2.1 Understanding the Leaderboard</h3>
+        <div class="step">
+            <h4>What You'll See:</h4>
+            <ul>
+                <li><strong>Player Rankings:</strong> Current standings sorted by net score (lowest is best)</li>
+                <li><strong>Handicap:</strong> Each player's handicap</li>
+                <li><strong>Playing Handicap:</strong> Adjusted handicap based on course difficulty</li>
+                <li><strong>Gross Total:</strong> Actual strokes taken</li>
+                <li><strong>Net Total:</strong> Gross score minus handicap strokes</li>
+                <li><strong>Stableford Points:</strong> Points earned (more is better)</li>
+            </ul>
+        </div>
+
+        <div class="note">
+            <strong>Winners:</strong><br>
+            🏆 <strong>Medal Play Winner:</strong> Player with the lowest net score<br>
+            🥇 <strong>Stableford Winner:</strong> Player with the most Stableford points
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>2.2 Expanding Scorecards</h3>
+        <div class="step">
+            <h4>View Hole-by-Hole Scores:</h4>
+            <ol>
+                <li>Click on any player row in the leaderboard</li>
+                <li>The row expands to show their complete scorecard</li>
+                <li>See scores for all 18 holes with color coding</li>
+                <li>View Front 9, Back 9, and total scores</li>
+            </ol>
+        </div>
+    </div>
+
+    <h2>3. Entering Scores</h2>
+
+    <div class="section">
+        <h3>3.1 Accessing Score Entry</h3>
+        <div class="step">
+            <h4>Steps:</h4>
+            <ol>
+                <li>Click on the <strong>SCORING</strong> tab</li>
+                <li>Your group will be automatically selected</li>
+                <li>You'll see all players in your group listed</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>3.2 Entering Scores for Each Hole</h3>
+        <div class="step">
+            <h4>How to Enter Scores:</h4>
+            <ol>
+                <li>Find the player's name in the left column</li>
+                <li>For each hole (1-18), enter the number of strokes taken</li>
+                <li>Press <strong>Enter</strong> or <strong>Tab</strong> to move to the next hole</li>
+                <li>Scores are automatically saved as you type</li>
+            </ol>
+        </div>
+
+        <div class="success">
+            <strong>✓ Auto-Save Feature:</strong> Scores save automatically - no save button needed!
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>3.3 Understanding the Scoring Grid</h3>
+        <div class="step">
+            <h4>What You'll See:</h4>
+            <p>The scoring grid is divided into two sections:</p>
+            <ul>
+                <li><strong>Front 9 (Holes 1-9):</strong> First half of the course</li>
+                <li><strong>Back 9 (Holes 10-18):</strong> Second half of the course</li>
+            </ul>
+            <p>Each section shows:</p>
+            <ul>
+                <li>Hole numbers</li>
+                <li>Par for each hole</li>
+                <li>Stroke Index (SI) - hole difficulty ranking</li>
+                <li>Input boxes for gross scores</li>
+                <li>Calculated net scores (gross minus handicap strokes)</li>
+                <li>Stableford points earned</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>3.4 Marking NR (No Return)</h3>
+        <div class="step">
+            <h4>If a Player Doesn't Complete a Hole:</h4>
+            <ol>
+                <li>Enter <strong>0</strong> (zero) in the score box for that hole</li>
+                <li>The system will mark it as "NR" (No Return)</li>
+                <li>NR holes:
+                    <ul>
+                        <li>Will not count towards gross/net totals</li>
+                        <li>Will show as "NR" in totals if any NR exists</li>
+                        <li>Still calculate Stableford points (0 points for NR)</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <div class="note">
+            <strong>Example:</strong> If a player picks up their ball on hole 7, enter "0" for that hole.
+        </div>
+    </div>
+
+    <h2>4. Understanding Score Colors</h2>
+
+    <div class="section">
+        <h3>4.1 Color-Coded Scoring</h3>
+        <p>Scores are color-coded to show performance relative to par:</p>
+
+        <table>
+            <tr>
+                <th>Score Type</th>
+                <th>Color</th>
+                <th>Meaning</th>
+            </tr>
+            <tr>
+                <td><span class="color-demo" style="background: #fde68a;"></span>Eagle or Better</td>
+                <td>Gold background</td>
+                <td>2 or more strokes under par</td>
+            </tr>
+            <tr>
+                <td><span class="color-demo" style="background: #d1fae5;"></span>Birdie</td>
+                <td>Light green background</td>
+                <td>1 stroke under par</td>
+            </tr>
+            <tr>
+                <td><span class="color-demo" style="background: white; border: 1px solid #ccc;"></span>Par</td>
+                <td>White background</td>
+                <td>Equal to par</td>
+            </tr>
+            <tr>
+                <td><span class="color-demo" style="background: #fed7aa;"></span>Bogey</td>
+                <td>Light orange background</td>
+                <td>1 stroke over par</td>
+            </tr>
+            <tr>
+                <td><span class="color-demo" style="background: #fecaca;"></span>Double Bogey+</td>
+                <td>Light red background</td>
+                <td>2 or more strokes over par</td>
+            </tr>
+        </table>
+    </div>
+
+    <h2>5. Understanding Handicap Calculations</h2>
+
+    <div class="section">
+        <h3>5.1 How Handicaps Work</h3>
+        <div class="step">
+            <h4>Playing Handicap:</h4>
+            <p>The system automatically calculates each player's playing handicap based on:</p>
+            <ul>
+                <li>Player's handicap index</li>
+                <li>Course slope rating</li>
+                <li>Course rating</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h4>Stroke Index (SI):</h4>
+            <p>Each hole has a Stroke Index from 1-18:</p>
+            <ul>
+                <li><strong>SI 1:</strong> Hardest hole on the course</li>
+                <li><strong>SI 18:</strong> Easiest hole on the course</li>
+                <li>Players receive handicap strokes on holes based on their playing handicap</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h4>Example:</h4>
+            <p>If a player has a playing handicap of 12:</p>
+            <ul>
+                <li>They receive 1 stroke on holes with SI 1-12</li>
+                <li>No strokes on holes with SI 13-18</li>
+                <li>This means their net score = gross score - 1 on those 12 holes</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>5.2 Stableford Scoring</h3>
+        <div class="step">
+            <h4>Points System:</h4>
+            <p>Stableford points are awarded based on net score relative to par:</p>
+            <table>
+                <tr>
+                    <th>Net Score</th>
+                    <th>Points</th>
+                </tr>
+                <tr>
+                    <td>Double Eagle or better</td>
+                    <td>5 points</td>
+                </tr>
+                <tr>
+                    <td>Eagle (-2)</td>
+                    <td>4 points</td>
+                </tr>
+                <tr>
+                    <td>Birdie (-1)</td>
+                    <td>3 points</td>
+                </tr>
+                <tr>
+                    <td>Par (0)</td>
+                    <td>2 points</td>
+                </tr>
+                <tr>
+                    <td>Bogey (+1)</td>
+                    <td>1 point</td>
+                </tr>
+                <tr>
+                    <td>Double Bogey or worse (+2 or more)</td>
+                    <td>0 points</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="note">
+            <strong>Remember:</strong> These points are based on NET score (after handicap strokes are applied), not gross score.
+        </div>
+    </div>
+
+    <h2>6. Best Practices for Scorers</h2>
+
+    <div class="section">
+        <h3>📋 Scoring Tips</h3>
+        <ul>
+            <li>✅ <strong>Enter scores after each hole</strong> to avoid forgetting</li>
+            <li>✅ <strong>Double-check scores</strong> before moving to the next hole</li>
+            <li>✅ <strong>Use 0 for NR</strong> if a player doesn't complete a hole</li>
+            <li>✅ <strong>Watch for auto-save</strong> - scores save automatically</li>
+            <li>✅ <strong>Check the leaderboard</strong> periodically to see live standings</li>
+            <li>✅ <strong>Keep your device charged</strong> throughout the round</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h3>⚠️ Important Reminders</h3>
+        <ul>
+            <li><strong>Internet Connection:</strong> You need internet to save scores and view the leaderboard</li>
+            <li><strong>Group PIN:</strong> Keep your PIN private - it's for your group only</li>
+            <li><strong>Score Entry:</strong> You can only enter scores for players in your group</li>
+            <li><strong>Real-Time Updates:</strong> Data refreshes every 5 seconds automatically</li>
+        </ul>
+    </div>
+
+    <h2>7. Troubleshooting</h2>
+
+    <div class="section">
+        <table>
+            <tr>
+                <th>Issue</th>
+                <th>Solution</th>
+            </tr>
+            <tr>
+                <td>Scores not saving</td>
+                <td>Check your internet connection. Scores auto-save every few seconds when connected.</td>
+            </tr>
+            <tr>
+                <td>Can't see my group</td>
+                <td>Make sure you entered the correct group PIN. Try logging out and back in.</td>
+            </tr>
+            <tr>
+                <td>Wrong score entered</td>
+                <td>Simply click on the score box and enter the correct number. It will save automatically.</td>
+            </tr>
+            <tr>
+                <td>Leaderboard not updating</td>
+                <td>Data refreshes every 5 seconds. If it still doesn't update, check your internet connection.</td>
+            </tr>
+            <tr>
+                <td>Forgot group PIN</td>
+                <td>Contact your tournament organizer for the PIN.</td>
+            </tr>
+        </table>
+    </div>
+
+    <h2>8. Quick Reference</h2>
+
+    <div class="section">
+        <h3>Available Tabs</h3>
+        <table>
+            <tr>
+                <th>Tab</th>
+                <th>Purpose</th>
+            </tr>
+            <tr>
+                <td><strong>LEADERBOARD</strong></td>
+                <td>View live standings and player scores</td>
+            </tr>
+            <tr>
+                <td><strong>SCORING</strong></td>
+                <td>Enter scores for your group</td>
+            </tr>
+            <tr>
+                <td><strong>SCORING MANUAL</strong></td>
+                <td>This guide - instructions for score entry</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h3>Score Entry Checklist</h3>
+        <ol>
+            <li>✅ Log in with your group PIN</li>
+            <li>✅ Navigate to the SCORING tab</li>
+            <li>✅ Verify your group is selected</li>
+            <li>✅ Enter gross scores for each hole</li>
+            <li>✅ Use 0 for holes not completed (NR)</li>
+            <li>✅ Scores save automatically</li>
+            <li>✅ Check the LEADERBOARD for live standings</li>
+        </ol>
+    </div>
+
+    <div class="footer">
+        <p><strong>The Legs Open Tournament Management System</strong></p>
+        <p>Score Entry Guide - Version 1.0</p>
+        <p>For support or questions, contact your tournament organizer</p>
+    </div>
+</body>
+</html>
