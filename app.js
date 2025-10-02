@@ -659,11 +659,16 @@ function LegsOpenTournament() {
     }
 
     try {
-      await supabase.from('tournament_players').insert([{
+      const { data, error } = await supabase.from('tournament_players').insert([{
         tournament_id: currentTournament.id,
         player_id: playerId,
         handicap: allPlayers.find(p => p.id === playerId)?.handicap || 0
       }]);
+      if (error) {
+        console.error('Error adding player:', error);
+        alert('Error adding player: ' + error.message);
+        return;
+      }
       await loadData();
     } catch (error) {
       console.error('Error adding player:', error);
