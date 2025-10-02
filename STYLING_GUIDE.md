@@ -1,4 +1,4 @@
-# Styling Guide - The Legs Open Golf App
+# Styling Guide - Golf Scorer Golf App
 
 ## Overview
 This document explains the CSS styling system used in the golf app and how to customize colors, fonts, and layouts.

@@ -51,5 +51,5 @@ Before using the logo upload feature, you need to run the database migration to 
 - Supported formats: Any image format (PNG, JPG, etc.)
 - The header displays:
   - Left: App logo (or trophy icon if no logo)
-  - Center: "THE LEGS OPEN" title and tournament name
+  - Center: "GOLF SCORER" title and tournament name
   - Right: Tournament logo (or empty space if no logo)

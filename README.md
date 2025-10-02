@@ -1,6 +1,6 @@
-# The Legs Open 2026
+# Golf Scorer 2026
 
-Golf tournament management system for The Legs Open championship series.
+Golf tournament management system for Golf Scorer championship series.
 
 ## Features
 - Multi-tournament management

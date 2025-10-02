@@ -1,7 +1,7 @@
 // Configuration
 const APP_CONFIG = {
-  supabaseUrl: 'https://pygqvtumydxsnybvakkw.supabase.co',
-  supabaseKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB5Z3F2dHVteWR4c255YnZha2t3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTkyNTU0MDgsImV4cCI6MjA3NDgzMTQwOH0.gZEXn485fkwjdnedthefsEyhnHiEMO_ZvreS9meiZbg',
+  supabaseUrl: 'https://kcbfqvpyywqtvarejsbu.supabase.co',
+  supabaseKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtjYmZxdnB5eXdxdHZhcmVqc2J1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTkyNTA4ODcsImV4cCI6MjA3NDgyNjg4N30.hXN1uXkrsD5LRN1O-4rAeWQxn1x8I9wR-SSV0PRdYMI',
   golfApiKey: 'JL4HBGKKLZZSXLHGDYRSFUUVLI',
   golfApiUrl: 'https://api.golfcourseapi.com',
   defaultHoleData: Array.from({ length: 18 }, (_, i) => ({
@@ -2850,7 +2850,7 @@ function LegsOpenTournament() {
         )
       ),
       h('p', { className: 'text-gray-600 mb-6' },
-        'Track all updates, improvements, and new features added to The Legs Open Championship Series.'
+        'Track all updates, improvements, and new features added to Golf Scorer Championship Series.'
       ),
       h('div', { className: 'space-y-4' },
         changelog.map(entry =>
@@ -2893,7 +2893,7 @@ function LegsOpenTournament() {
       h('div', { className: 'bg-white rounded-lg classic-shadow p-8 max-w-md w-full' },
         h('div', { className: 'text-center mb-6' },
           h(Icons.Trophy, { className: 'text-green-700 mx-auto mb-3', size: 64 }),
-          h('h1', { className: 'text-4xl font-bold text-green-800 mb-2' }, 'THE LEGS OPEN'),
+          h('h1', { className: 'text-4xl font-bold text-green-800 mb-2' }, 'GOLF SCORER'),
           h('p', { className: 'text-gray-600' }, 'Please enter your PIN to continue')
         ),
         h('form', { onSubmit: handlePinSubmit },
@@ -2926,7 +2926,7 @@ function LegsOpenTournament() {
 
   if (loading) {
     return h('div', { className: 'min-h-screen hero-pattern flex items-center justify-center' },
-      h('div', { className: 'text-white text-xl font-light' }, 'Loading The Legs Open...')
+      h('div', { className: 'text-white text-xl font-light' }, 'Loading Golf Scorer...')
     );
   }
 
@@ -2969,7 +2969,7 @@ function LegsOpenTournament() {
           ),
           // Center: Title
           h('div', { className: 'flex-1 text-center' },
-            h('h1', { className: 'text-4xl md:text-5xl font-bold tracking-tight mb-2' }, 'THE LEGS OPEN'),
+            h('h1', { className: 'text-4xl md:text-5xl font-bold tracking-tight mb-2' }, 'GOLF SCORER'),
             h('p', { className: 'text-lg font-light text-gray-200 tracking-wide' },
               currentTournament ? `${currentTournament.name} - ${currentTournament.year}` : 'Championship Series'
             )
