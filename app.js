@@ -2247,6 +2247,14 @@ function LegsOpenTournament() {
                             )
                           ),
                           h('div', { className: 'scorecard-grid' },
+                            h('div', { className: 'scorecard-par-label' }, 'SI'),
+                            ...Array.from({ length: 9 }, (_, i) => i + 1).map(hole => {
+                              const holeData = courseHoles.find(h => h.hole === hole);
+                              return h('div', { key: `si-${hole}`, className: 'scorecard-par-cell' }, holeData?.strokeIndex || '-');
+                            }),
+                            h('div', { className: 'scorecard-par-subtotal' }, '')
+                          ),
+                          h('div', { className: 'scorecard-grid' },
                             h('div', { className: 'scorecard-score-label' }, 'Score'),
                             ...Array.from({ length: 9 }, (_, i) => i + 1).map(hole => {
                               const holeData = courseHoles.find(h => h.hole === hole);
@@ -2264,16 +2272,26 @@ function LegsOpenTournament() {
                               const holeData = courseHoles.find(h => h.hole === hole);
                               const score = playerScores[hole];
                               if (!score || !holeData) return h('div', { key: `net-${hole}`, className: 'scorecard-score-cell' }, '-');
-                              const strokes = Math.floor(player.playingHandicap * holeData.strokeIndex / 18);
-                              const netScore = score === 'NR' ? 'NR' : score - strokes;
+                              // Calculate strokes received on this hole based on stroke index
+                              const strokesReceived = holeData.strokeIndex <= player.playingHandicap ?
+                                Math.floor(player.playingHandicap / 18) + (holeData.strokeIndex <= (player.playingHandicap % 18) ? 1 : 0) :
+                                Math.floor(player.playingHandicap / 18);
+                              const netScore = score === 'NR' ? 'NR' : score - strokesReceived;
                               return h('div', {
                                 key: `net-${hole}`,
                                 className: `scorecard-score-cell ${netScore !== 'NR' ? getScoreColorClass(netScore, holeData.par) : 'score-par'}`
                               }, netScore);
                             }),
                             h('div', { className: 'scorecard-score-subtotal' },
-                              hasFront9NR ? 'NR' : (front9 && player.playingHandicap ?
-                                front9 - Math.floor(player.playingHandicap / 2) : '-')
+                              hasFront9NR ? 'NR' : (front9 && typeof front9 === 'number' ?
+                                front9 - Array.from({ length: 9 }, (_, i) => i + 1).reduce((sum, hole) => {
+                                  const holeData = courseHoles.find(h => h.hole === hole);
+                                  if (!holeData) return sum;
+                                  const strokesReceived = holeData.strokeIndex <= player.playingHandicap ?
+                                    Math.floor(player.playingHandicap / 18) + (holeData.strokeIndex <= (player.playingHandicap % 18) ? 1 : 0) :
+                                    Math.floor(player.playingHandicap / 18);
+                                  return sum + strokesReceived;
+                                }, 0) : '-')
                             )
                           ),
                           h('div', { className: 'scorecard-grid' },
@@ -2282,8 +2300,10 @@ function LegsOpenTournament() {
                               const holeData = courseHoles.find(h => h.hole === hole);
                               const score = playerScores[hole];
                               if (!score || !holeData) return h('div', { key: `pts-${hole}`, className: 'scorecard-score-cell' }, '-');
-                              const strokes = Math.floor(player.playingHandicap * holeData.strokeIndex / 18);
-                              const netScore = score === 'NR' ? 999 : score - strokes;
+                              const strokesReceived = holeData.strokeIndex <= player.playingHandicap ?
+                                Math.floor(player.playingHandicap / 18) + (holeData.strokeIndex <= (player.playingHandicap % 18) ? 1 : 0) :
+                                Math.floor(player.playingHandicap / 18);
+                              const netScore = score === 'NR' ? 999 : score - strokesReceived;
                               const points = Math.max(0, 2 + holeData.par - netScore);
                               return h('div', {
                                 key: `pts-${hole}`,
@@ -2295,8 +2315,10 @@ function LegsOpenTournament() {
                                 const holeData = courseHoles.find(h => h.hole === hole);
                                 const score = playerScores[hole];
                                 if (!score || !holeData) return sum;
-                                const strokes = Math.floor(player.playingHandicap * holeData.strokeIndex / 18);
-                                const netScore = score === 'NR' ? 999 : score - strokes;
+                                const strokesReceived = holeData.strokeIndex <= player.playingHandicap ?
+                                  Math.floor(player.playingHandicap / 18) + (holeData.strokeIndex <= (player.playingHandicap % 18) ? 1 : 0) :
+                                  Math.floor(player.playingHandicap / 18);
+                                const netScore = score === 'NR' ? 999 : score - strokesReceived;
                                 return sum + Math.max(0, 2 + holeData.par - netScore);
                               }, 0)
                             )
@@ -2323,6 +2345,14 @@ function LegsOpenTournament() {
                             )
                           ),
                           h('div', { className: 'scorecard-grid' },
+                            h('div', { className: 'scorecard-par-label' }, 'SI'),
+                            ...Array.from({ length: 9 }, (_, i) => i + 10).map(hole => {
+                              const holeData = courseHoles.find(h => h.hole === hole);
+                              return h('div', { key: `si-${hole}`, className: 'scorecard-par-cell' }, holeData?.strokeIndex || '-');
+                            }),
+                            h('div', { className: 'scorecard-par-subtotal' }, '')
+                          ),
+                          h('div', { className: 'scorecard-grid' },
                             h('div', { className: 'scorecard-score-label' }, 'Score'),
                             ...Array.from({ length: 9 }, (_, i) => i + 10).map(hole => {
                               const holeData = courseHoles.find(h => h.hole === hole);
@@ -2340,16 +2370,25 @@ function LegsOpenTournament() {
                               const holeData = courseHoles.find(h => h.hole === hole);
                               const score = playerScores[hole];
                               if (!score || !holeData) return h('div', { key: `net-${hole}`, className: 'scorecard-score-cell' }, '-');
-                              const strokes = Math.floor(player.playingHandicap * holeData.strokeIndex / 18);
-                              const netScore = score === 'NR' ? 'NR' : score - strokes;
+                              const strokesReceived = holeData.strokeIndex <= player.playingHandicap ?
+                                Math.floor(player.playingHandicap / 18) + (holeData.strokeIndex <= (player.playingHandicap % 18) ? 1 : 0) :
+                                Math.floor(player.playingHandicap / 18);
+                              const netScore = score === 'NR' ? 'NR' : score - strokesReceived;
                               return h('div', {
                                 key: `net-${hole}`,
                                 className: `scorecard-score-cell ${netScore !== 'NR' ? getScoreColorClass(netScore, holeData.par) : 'score-par'}`
                               }, netScore);
                             }),
                             h('div', { className: 'scorecard-score-subtotal' },
-                              hasBack9NR ? 'NR' : (back9 && player.playingHandicap ?
-                                back9 - Math.floor(player.playingHandicap / 2) : '-')
+                              hasBack9NR ? 'NR' : (back9 && typeof back9 === 'number' ?
+                                back9 - Array.from({ length: 9 }, (_, i) => i + 10).reduce((sum, hole) => {
+                                  const holeData = courseHoles.find(h => h.hole === hole);
+                                  if (!holeData) return sum;
+                                  const strokesReceived = holeData.strokeIndex <= player.playingHandicap ?
+                                    Math.floor(player.playingHandicap / 18) + (holeData.strokeIndex <= (player.playingHandicap % 18) ? 1 : 0) :
+                                    Math.floor(player.playingHandicap / 18);
+                                  return sum + strokesReceived;
+                                }, 0) : '-')
                             )
                           ),
                           h('div', { className: 'scorecard-grid' },
@@ -2358,8 +2397,10 @@ function LegsOpenTournament() {
                               const holeData = courseHoles.find(h => h.hole === hole);
                               const score = playerScores[hole];
                               if (!score || !holeData) return h('div', { key: `pts-${hole}`, className: 'scorecard-score-cell' }, '-');
-                              const strokes = Math.floor(player.playingHandicap * holeData.strokeIndex / 18);
-                              const netScore = score === 'NR' ? 999 : score - strokes;
+                              const strokesReceived = holeData.strokeIndex <= player.playingHandicap ?
+                                Math.floor(player.playingHandicap / 18) + (holeData.strokeIndex <= (player.playingHandicap % 18) ? 1 : 0) :
+                                Math.floor(player.playingHandicap / 18);
+                              const netScore = score === 'NR' ? 999 : score - strokesReceived;
                               const points = Math.max(0, 2 + holeData.par - netScore);
                               return h('div', {
                                 key: `pts-${hole}`,
@@ -2371,8 +2412,10 @@ function LegsOpenTournament() {
                                 const holeData = courseHoles.find(h => h.hole === hole);
                                 const score = playerScores[hole];
                                 if (!score || !holeData) return sum;
-                                const strokes = Math.floor(player.playingHandicap * holeData.strokeIndex / 18);
-                                const netScore = score === 'NR' ? 999 : score - strokes;
+                                const strokesReceived = holeData.strokeIndex <= player.playingHandicap ?
+                                  Math.floor(player.playingHandicap / 18) + (holeData.strokeIndex <= (player.playingHandicap % 18) ? 1 : 0) :
+                                  Math.floor(player.playingHandicap / 18);
+                                const netScore = score === 'NR' ? 999 : score - strokesReceived;
                                 return sum + Math.max(0, 2 + holeData.par - netScore);
                               }, 0)
                             )
