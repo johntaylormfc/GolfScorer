@@ -934,8 +934,8 @@ function LegsOpenTournament() {
   const calculateStableford = (strokes, holeNumber, playingHandicap) => {
     const holeData = courseHoles.find(h => h.hole === holeNumber);
     if (!holeData) return 0;
-    const strokesReceived = playingHandicap >= holeData.strokeIndex ? 
-      Math.floor(playingHandicap / 18) + 1 : 
+    const strokesReceived = holeData.strokeIndex <= playingHandicap ?
+      Math.floor(playingHandicap / 18) + (holeData.strokeIndex <= (playingHandicap % 18) ? 1 : 0) :
       Math.floor(playingHandicap / 18);
     const netScore = strokes - strokesReceived;
     return Math.max(0, 2 + (holeData.par - netScore));
@@ -974,8 +974,8 @@ function LegsOpenTournament() {
         if (score && score !== 'NR') {
           const holeData = courseHoles.find(h => h.hole === hole);
           if (holeData) {
-            const strokesReceived = playingHandicap >= holeData.strokeIndex ?
-              Math.floor(playingHandicap / 18) + 1 :
+            const strokesReceived = holeData.strokeIndex <= playingHandicap ?
+              Math.floor(playingHandicap / 18) + (holeData.strokeIndex <= (playingHandicap % 18) ? 1 : 0) :
               Math.floor(playingHandicap / 18);
             const netScore = score - strokesReceived;
             netTotal += netScore;
