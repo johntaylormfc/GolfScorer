@@ -739,7 +739,12 @@ function LegsOpenTournament() {
         });
       }
       await supabase.from('groups').delete().eq('tournament_id', currentTournament.id);
-      await supabase.from('groups').insert(newGroups);
+      const { data, error } = await supabase.from('groups').insert(newGroups);
+      if (error) {
+        console.error('Error generating groups:', error);
+        alert('Error generating groups: ' + error.message);
+        return;
+      }
       await loadData();
       setActiveTab('scoring');
     } catch (error) {
@@ -841,7 +846,12 @@ function LegsOpenTournament() {
       });
 
       await supabase.from('groups').delete().eq('tournament_id', currentTournament.id);
-      await supabase.from('groups').insert(groupsToSave);
+      const { data, error } = await supabase.from('groups').insert(groupsToSave);
+      if (error) {
+        console.error('Error saving manual groups:', error);
+        alert('Error saving groups: ' + error.message);
+        return;
+      }
       await loadData();
       setManualGroupMode(false);
       setManualGroups([]);
