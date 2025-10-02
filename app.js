@@ -2286,7 +2286,8 @@ function LegsOpenTournament() {
                               hasFront9NR ? 'NR' : (front9 && typeof front9 === 'number' ?
                                 front9 - Array.from({ length: 9 }, (_, i) => i + 1).reduce((sum, hole) => {
                                   const holeData = courseHoles.find(h => h.hole === hole);
-                                  if (!holeData) return sum;
+                                  const score = playerScores[hole];
+                                  if (!score || !holeData) return sum;
                                   const strokesReceived = holeData.strokeIndex <= player.playingHandicap ?
                                     Math.floor(player.playingHandicap / 18) + (holeData.strokeIndex <= (player.playingHandicap % 18) ? 1 : 0) :
                                     Math.floor(player.playingHandicap / 18);
@@ -2383,7 +2384,8 @@ function LegsOpenTournament() {
                               hasBack9NR ? 'NR' : (back9 && typeof back9 === 'number' ?
                                 back9 - Array.from({ length: 9 }, (_, i) => i + 10).reduce((sum, hole) => {
                                   const holeData = courseHoles.find(h => h.hole === hole);
-                                  if (!holeData) return sum;
+                                  const score = playerScores[hole];
+                                  if (!score || !holeData) return sum;
                                   const strokesReceived = holeData.strokeIndex <= player.playingHandicap ?
                                     Math.floor(player.playingHandicap / 18) + (holeData.strokeIndex <= (player.playingHandicap % 18) ? 1 : 0) :
                                     Math.floor(player.playingHandicap / 18);
