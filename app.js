@@ -300,7 +300,12 @@ function LegsOpenTournament() {
   const createTournament = async () => {
     if (!newTournament.name || !newTournament.year) return;
     try {
-      await supabase.from('tournaments').insert([newTournament]);
+      const { data, error } = await supabase.from('tournaments').insert([newTournament]);
+      if (error) {
+        console.error('Error creating tournament:', error);
+        alert('Error creating tournament: ' + error.message);
+        return;
+      }
       await loadData();
       setShowCreateTournament(false);
       setNewTournament({
