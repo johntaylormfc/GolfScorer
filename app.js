@@ -1030,12 +1030,15 @@ function LegsOpenTournament() {
           }
         }
       }
+      const grossVsParNum = hasNR ? 999 : (holesCompleted === 0 ? 0 : grossTotal - parForHolesPlayed);
+      const netVsParNum = hasNR ? 999 : (holesCompleted === 0 ? 0 : netTotal - parForHolesPlayed);
+
       const grossVsPar = hasNR ? 'NR' : (holesCompleted === 0 ? 'E' :
-        (grossTotal - parForHolesPlayed === 0 ? 'E' :
-          (grossTotal - parForHolesPlayed > 0 ? `+${grossTotal - parForHolesPlayed}` : grossTotal - parForHolesPlayed)));
+        (grossVsParNum === 0 ? 'E' :
+          (grossVsParNum > 0 ? `+${grossVsParNum}` : grossVsParNum)));
       const netVsPar = hasNR ? 'NR' : (holesCompleted === 0 ? 'E' :
-        (netTotal - parForHolesPlayed === 0 ? 'E' :
-          (netTotal - parForHolesPlayed > 0 ? `+${netTotal - parForHolesPlayed}` : netTotal - parForHolesPlayed)));
+        (netVsParNum === 0 ? 'E' :
+          (netVsParNum > 0 ? `+${netVsParNum}` : netVsParNum)));
 
       return {
         ...player,
@@ -1043,6 +1046,8 @@ function LegsOpenTournament() {
         netTotal: netTotalDisplay,
         grossVsPar,
         netVsPar,
+        grossVsParNum,
+        netVsParNum,
         stablefordTotal,
         playingHandicap,
         back9Gross: hasNR ? 'NR' : back9Gross,
@@ -1058,20 +1063,17 @@ function LegsOpenTournament() {
     // Sort based on selected criteria with tie-breaking
     if (sortBy === 'gross') {
       results.sort((a, b) => {
-        // NR always goes to bottom
-        if (a.grossTotal === 'NR' && b.grossTotal !== 'NR') return 1;
-        if (b.grossTotal === 'NR' && a.grossTotal !== 'NR') return -1;
-        if (a.grossTotal === 'NR' && b.grossTotal === 'NR') return 0;
-        // First compare gross totals
-        if (a.grossTotal !== b.grossTotal) return a.grossTotal - b.grossTotal;
+        // First compare gross vs par (lower is better)
+        if (a.grossVsParNum !== b.grossVsParNum) return a.grossVsParNum - b.grossVsParNum;
         // Tie-breaker 1: holes completed (more is better)
         if (a.holesCompleted !== b.holesCompleted) return b.holesCompleted - a.holesCompleted;
         // Tie-breaker 2: back 9 gross (lower is better)
-        return a.back9Gross - b.back9Gross;
+        if (a.back9Gross !== b.back9Gross) return a.back9Gross - b.back9Gross;
+        return 0;
       });
     } else if (sortBy === 'stableford') {
       results.sort((a, b) => {
-        // First compare stableford totals
+        // First compare stableford totals (higher is better)
         if (b.stablefordTotal !== a.stablefordTotal) return b.stablefordTotal - a.stablefordTotal;
         // Tie-breaker 1: holes completed (more is better)
         if (a.holesCompleted !== b.holesCompleted) return b.holesCompleted - a.holesCompleted;
@@ -1080,16 +1082,13 @@ function LegsOpenTournament() {
       });
     } else {
       results.sort((a, b) => {
-        // NR always goes to bottom
-        if (a.netTotal === 'NR' && b.netTotal !== 'NR') return 1;
-        if (b.netTotal === 'NR' && a.netTotal !== 'NR') return -1;
-        if (a.netTotal === 'NR' && b.netTotal === 'NR') return 0;
-        // First compare net totals
-        if (a.netTotal !== b.netTotal) return a.netTotal - b.netTotal;
+        // First compare net vs par (lower is better)
+        if (a.netVsParNum !== b.netVsParNum) return a.netVsParNum - b.netVsParNum;
         // Tie-breaker 1: holes completed (more is better)
         if (a.holesCompleted !== b.holesCompleted) return b.holesCompleted - a.holesCompleted;
         // Tie-breaker 2: back 9 net (lower is better)
-        return a.back9Net - b.back9Net;
+        if (a.back9Net !== b.back9Net) return a.back9Net - b.back9Net;
+        return 0;
       });
     }
 
