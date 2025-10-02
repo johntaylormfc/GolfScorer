@@ -944,10 +944,32 @@ function LegsOpenTournament() {
 
       const playingHandicap = calculatePlayingHandicap(player.handicap);
 
+      // Calculate net score based on stroke index for holes played
+      let netTotal = 0;
+      let back9Net = 0;
+
+      for (let hole = 1; hole <= 18; hole++) {
+        const score = playerScores[hole];
+        if (score && score !== 'NR') {
+          const holeData = courseHoles.find(h => h.hole === hole);
+          if (holeData) {
+            const strokesReceived = playingHandicap >= holeData.strokeIndex ?
+              Math.floor(playingHandicap / 18) + 1 :
+              Math.floor(playingHandicap / 18);
+            const netScore = score - strokesReceived;
+            netTotal += netScore;
+
+            if (hole >= 10) {
+              back9Net += netScore;
+            }
+          }
+        }
+      }
+
       // If player has any NR, set gross and net to 'NR'
       const grossTotalDisplay = hasNR ? 'NR' : grossTotal;
-      const netTotal = hasNR ? 'NR' : (grossTotal - playingHandicap);
-      const back9Net = hasNR ? 'NR' : (back9Gross - Math.floor(playingHandicap / 2));
+      const netTotalDisplay = hasNR ? 'NR' : netTotal;
+      const back9NetDisplay = hasNR ? 'NR' : back9Net;
 
       // Calculate stableford (still works with NR holes - just skip them)
       let stablefordTotal = 0;
@@ -980,11 +1002,11 @@ function LegsOpenTournament() {
       return {
         ...player,
         grossTotal: grossTotalDisplay,
-        netTotal,
+        netTotal: netTotalDisplay,
         stablefordTotal,
         playingHandicap,
         back9Gross: hasNR ? 'NR' : back9Gross,
-        back9Net,
+        back9Net: back9NetDisplay,
         back9Stableford,
         hasNR,
         currentHole: nextHole,
@@ -2307,8 +2329,8 @@ function LegsOpenTournament() {
 
           const grossTotal = Object.values(playerScores).reduce((sum, s) => sum + s, 0);
           const playingHandicap = calculatePlayingHandicap(selectedPlayer.handicap);
-          const netTotal = grossTotal - playingHandicap;
 
+          let netTotal = 0;
           let stablefordTotal = 0;
           const tournamentHoles = tournament.holes || APP_CONFIG.defaultHoleData;
           for (let hole = 1; hole <= 18; hole++) {
@@ -2319,6 +2341,7 @@ function LegsOpenTournament() {
                   Math.floor(playingHandicap / 18) + 1 :
                   Math.floor(playingHandicap / 18);
                 const netScore = playerScores[hole] - strokesReceived;
+                netTotal += netScore;
                 stablefordTotal += Math.max(0, 2 + (holeData.par - netScore));
               }
             }
@@ -2335,7 +2358,20 @@ function LegsOpenTournament() {
             });
             const pGross = Object.values(pScoresMap).reduce((sum, s) => sum + s, 0);
             const pHandicap = calculatePlayingHandicap(p.handicap);
-            const pNet = pGross - pHandicap;
+
+            let pNet = 0;
+            for (let hole = 1; hole <= 18; hole++) {
+              if (pScoresMap[hole]) {
+                const holeData = tournamentHoles.find(h => h.hole === hole);
+                if (holeData) {
+                  const strokesReceived = pHandicap >= holeData.strokeIndex ?
+                    Math.floor(pHandicap / 18) + 1 :
+                    Math.floor(pHandicap / 18);
+                  pNet += pScoresMap[hole] - strokesReceived;
+                }
+              }
+            }
+
             return { playerId: p.id, netTotal: pNet, grossTotal: pGross };
           }).filter(p => p.grossTotal > 0);
 
