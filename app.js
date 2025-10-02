@@ -1064,14 +1064,18 @@ function LegsOpenTournament() {
         if (a.grossTotal === 'NR' && b.grossTotal === 'NR') return 0;
         // First compare gross totals
         if (a.grossTotal !== b.grossTotal) return a.grossTotal - b.grossTotal;
-        // Tie-breaker: back 9 gross (lower is better)
+        // Tie-breaker 1: holes completed (more is better)
+        if (a.holesCompleted !== b.holesCompleted) return b.holesCompleted - a.holesCompleted;
+        // Tie-breaker 2: back 9 gross (lower is better)
         return a.back9Gross - b.back9Gross;
       });
     } else if (sortBy === 'stableford') {
       results.sort((a, b) => {
         // First compare stableford totals
         if (b.stablefordTotal !== a.stablefordTotal) return b.stablefordTotal - a.stablefordTotal;
-        // Tie-breaker: back 9 stableford (higher is better)
+        // Tie-breaker 1: holes completed (more is better)
+        if (a.holesCompleted !== b.holesCompleted) return b.holesCompleted - a.holesCompleted;
+        // Tie-breaker 2: back 9 stableford (higher is better)
         return b.back9Stableford - a.back9Stableford;
       });
     } else {
@@ -1082,7 +1086,9 @@ function LegsOpenTournament() {
         if (a.netTotal === 'NR' && b.netTotal === 'NR') return 0;
         // First compare net totals
         if (a.netTotal !== b.netTotal) return a.netTotal - b.netTotal;
-        // Tie-breaker: back 9 net (lower is better)
+        // Tie-breaker 1: holes completed (more is better)
+        if (a.holesCompleted !== b.holesCompleted) return b.holesCompleted - a.holesCompleted;
+        // Tie-breaker 2: back 9 net (lower is better)
         return a.back9Net - b.back9Net;
       });
     }
@@ -2164,15 +2170,6 @@ function LegsOpenTournament() {
                   h('button', {
                     onClick: (e) => {
                       e.stopPropagation();
-                      setLeaderboardSortBy('gross');
-                    },
-                    className: `px-2 py-1 rounded text-sm font-semibold transition-colors ${leaderboardSortBy === 'gross' ? 'bg-white text-green-700' : 'hover:bg-green-600'}`
-                  }, 'Gross ▼')
-                ),
-                h('th', { className: 'p-3 text-center' },
-                  h('button', {
-                    onClick: (e) => {
-                      e.stopPropagation();
                       setLeaderboardSortBy('net');
                     },
                     className: `px-2 py-1 rounded text-sm font-semibold transition-colors ${leaderboardSortBy === 'net' ? 'bg-white text-green-700' : 'hover:bg-green-600'}`
@@ -2186,6 +2183,15 @@ function LegsOpenTournament() {
                     },
                     className: `px-2 py-1 rounded text-sm font-semibold transition-colors ${leaderboardSortBy === 'stableford' ? 'bg-white text-green-700' : 'hover:bg-green-600'}`
                   }, 'Stableford ▼')
+                ),
+                h('th', { className: 'p-3 text-center' },
+                  h('button', {
+                    onClick: (e) => {
+                      e.stopPropagation();
+                      setLeaderboardSortBy('gross');
+                    },
+                    className: `px-2 py-1 rounded text-sm font-semibold transition-colors ${leaderboardSortBy === 'gross' ? 'bg-white text-green-700' : 'hover:bg-green-600'}`
+                  }, 'Gross ▼')
                 ),
                 allScoresComplete && h('th', { className: 'p-3 text-center' }, 'Score'),
                 h('th', { className: 'p-3 text-center' }, 'Hole')
@@ -2225,9 +2231,9 @@ function LegsOpenTournament() {
                     h('td', { className: 'p-3' }, player.name),
                     h('td', { className: 'p-3 text-center' }, player.handicap.toFixed(1)),
                     h('td', { className: 'p-3 text-center' }, player.playingHandicap),
-                    h('td', { className: 'p-3 text-center' }, player.grossVsPar),
                     h('td', { className: 'p-3 text-center font-bold' }, player.netVsPar),
                     h('td', { className: 'p-3 text-center' }, player.stablefordTotal),
+                    h('td', { className: 'p-3 text-center' }, player.grossVsPar),
                     allScoresComplete && h('td', { className: 'p-3 text-center' },
                       `${player.grossTotal}(${player.netTotal})`
                     ),
@@ -2237,7 +2243,7 @@ function LegsOpenTournament() {
                           player.currentHole
                         ) :
                         h('span', { className: 'px-2 py-1 bg-green-600 text-white rounded text-sm font-bold' },
-                          player.currentHole === 'Finished' ? '✓ Complete' : player.currentHole
+                          player.netTotal
                         )
                     )
                   ),
