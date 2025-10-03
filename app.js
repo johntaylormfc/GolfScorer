@@ -101,6 +101,7 @@ function LegsOpenTournament() {
   const [allScores, setAllScores] = useState([]); // Store all scores for historical data
   const [selectedGroup, setSelectedGroup] = useState(null);
   const [selectedPlayer, setSelectedPlayer] = useState(null);
+  const [currentHoleView, setCurrentHoleView] = useState(1); // For 3-column score entry view
   const [viewingScorecard, setViewingScorecard] = useState(null); // For viewing player's scorecard from tournament history
   const [newPlayer, setNewPlayer] = useState({ name: '', handicap: '', cdh: '', bio: '', photo_url: '' });
   const [showCreateTournament, setShowCreateTournament] = useState(false);
@@ -1939,6 +1940,38 @@ function LegsOpenTournament() {
       ? groups
       : groups.filter(g => g.id === userGroupId);
 
+    // Calculate which holes to display based on current view
+    // Find the last completed hole across all players in the group
+    let lastCompletedHole = 0;
+    if (selectedGroup) {
+      selectedGroup.player_ids?.forEach(playerId => {
+        const playerScores = scores[playerId] || {};
+        for (let hole = 18; hole >= 1; hole--) {
+          if (playerScores[hole] && playerScores[hole] !== '') {
+            lastCompletedHole = Math.max(lastCompletedHole, hole);
+            break;
+          }
+        }
+      });
+    }
+
+    // Default to showing holes around the current position
+    // If no scores yet, start at hole 1
+    const defaultHole = lastCompletedHole === 0 ? 1 : Math.min(lastCompletedHole, 18);
+
+    // Ensure currentHoleView is valid when group changes
+    const effectiveHoleView = Math.min(Math.max(currentHoleView, 1), 18);
+
+    // Calculate the 3 holes to display: previous, current, next
+    const prevHole = effectiveHoleView - 1;
+    const currentHole = effectiveHoleView;
+    const nextHole = effectiveHoleView + 1;
+
+    const displayHoles = [prevHole, currentHole, nextHole].filter(h => h >= 1 && h <= 18);
+
+    const canNavigatePrev = effectiveHoleView > 1;
+    const canNavigateNext = effectiveHoleView < 18;
+
     return h('div', { className: 'space-y-6' },
       h('h2', { className: 'text-3xl font-bold text-green-800 mb-4' }, 'Live Scoring'),
       h('div', { className: 'grid grid-cols-2 md:grid-cols-4 gap-4 mb-6' },
@@ -1947,7 +1980,21 @@ function LegsOpenTournament() {
           className: 'relative'
         },
           h('button', {
-            onClick: () => setSelectedGroup(group),
+            onClick: () => {
+              setSelectedGroup(group);
+              // Auto-set to appropriate hole when selecting group
+              let lastHole = 0;
+              group.player_ids?.forEach(pid => {
+                const pScores = scores[pid] || {};
+                for (let h = 18; h >= 1; h--) {
+                  if (pScores[h] && pScores[h] !== '') {
+                    lastHole = Math.max(lastHole, h);
+                    break;
+                  }
+                }
+              });
+              setCurrentHoleView(lastHole === 0 ? 1 : Math.min(lastHole, 18));
+            },
             className: `w-full p-4 rounded-lg font-bold ${selectedGroup?.id === group.id ? 'bg-green-700 text-white' : 'bg-white text-green-800'} classic-shadow hover-lift text-left`
           },
             h('div', null,
@@ -1967,129 +2014,137 @@ function LegsOpenTournament() {
             `Group PIN: ${selectedGroup.pin}`
           )
         ),
-        h('div', { className: 'space-y-4' },
-          selectedGroup.player_ids?.map(playerId => {
-            const player = allPlayers.find(p => p.id === playerId);
-            if (!player) return null;
-            const playerScores = scores[playerId] || {};
-            return h('div', {
-              key: playerId,
-              className: 'border-b border-gray-200 pb-4'
-            },
-              h('div', { className: 'flex justify-between items-center mb-2' },
-                h('h4', { className: 'font-bold text-lg' }, player.name),
-                h('span', { className: 'text-gray-600' }, `HCP: ${player.handicap}`)
-              ),
-              h('div', { className: 'space-y-2' },
-                // Front 9
-                h('div', null,
-                  h('p', { className: 'text-sm font-semibold text-gray-700 mb-1' }, 'Front 9'),
-                  h('div', { className: 'grid grid-cols-3 md:grid-cols-9 gap-2' },
-                    Array.from({ length: 9 }, (_, i) => i + 1).map(hole => {
-                      const holeData = courseHoles.find(h => h.hole === hole);
-                      const canEdit = userRole === 'admin' || (userRole === 'group' && selectedGroup.id === userGroupId);
-                      const isNR = playerScores[hole] === 'NR';
-                      return h('div', { key: hole, className: 'flex flex-col gap-1' },
-                        h('label', { className: 'text-xs text-gray-500 text-center font-semibold' }, `${hole}`),
-                        h('label', { className: 'text-xs text-gray-400 text-center' }, `Par ${holeData?.par}`),
-                        isNR ?
-                          h('div', { className: 'relative' },
-                            h('div', { className: 'border border-orange-400 bg-orange-50 p-2 rounded text-center font-bold text-orange-700 text-sm' }, 'NR'),
-                            canEdit && h('button', {
-                              onClick: (e) => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                updateScore(playerId, hole, '');
-                              },
-                              className: 'absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 text-xs flex items-center justify-center hover:bg-red-600',
-                              title: 'Clear NR'
-                            }, '×')
-                          ) :
-                          h('div', { className: 'flex flex-col gap-1' },
-                            h('input', {
-                              type: 'number',
-                              value: playerScores[hole] || '',
-                              onChange: canEdit ? (e) => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                updateScore(playerId, hole, e.target.value);
-                              } : undefined,
-                              readOnly: !canEdit,
-                              className: `w-full border border-gray-300 p-2 rounded text-center ${!canEdit ? 'bg-gray-100 cursor-not-allowed' : ''}`,
-                              placeholder: '-',
-                              min: '1',
-                              max: '15'
-                            }),
-                            canEdit && h('button', {
-                              onClick: (e) => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                updateScore(playerId, hole, 'NR');
-                              },
-                              className: 'w-full bg-orange-500 text-white px-1 py-1 text-xs rounded hover:bg-orange-600 font-bold',
-                              title: 'Mark as No Return'
-                            }, 'NR')
-                          )
-                      );
-                    })
-                  )
-                ),
-                // Back 9
-                h('div', null,
-                  h('p', { className: 'text-sm font-semibold text-gray-700 mb-1' }, 'Back 9'),
-                  h('div', { className: 'grid grid-cols-3 md:grid-cols-9 gap-2' },
-                    Array.from({ length: 9 }, (_, i) => i + 10).map(hole => {
-                      const holeData = courseHoles.find(h => h.hole === hole);
-                      const canEdit = userRole === 'admin' || (userRole === 'group' && selectedGroup.id === userGroupId);
-                      const isNR = playerScores[hole] === 'NR';
-                      return h('div', { key: hole, className: 'flex flex-col gap-1' },
-                        h('label', { className: 'text-xs text-gray-500 text-center font-semibold' }, `${hole}`),
-                        h('label', { className: 'text-xs text-gray-400 text-center' }, `Par ${holeData?.par}`),
-                        isNR ?
-                          h('div', { className: 'relative' },
-                            h('div', { className: 'border border-orange-400 bg-orange-50 p-2 rounded text-center font-bold text-orange-700 text-sm' }, 'NR'),
-                            canEdit && h('button', {
-                              onClick: (e) => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                updateScore(playerId, hole, '');
-                              },
-                              className: 'absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 text-xs flex items-center justify-center hover:bg-red-600',
-                              title: 'Clear NR'
-                            }, '×')
-                          ) :
-                          h('div', { className: 'flex flex-col gap-1' },
-                            h('input', {
-                              type: 'number',
-                              value: playerScores[hole] || '',
-                              onChange: canEdit ? (e) => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                updateScore(playerId, hole, e.target.value);
-                              } : undefined,
-                              readOnly: !canEdit,
-                              className: `w-full border border-gray-300 p-2 rounded text-center ${!canEdit ? 'bg-gray-100 cursor-not-allowed' : ''}`,
-                              placeholder: '-',
-                              min: '1',
-                              max: '15'
-                            }),
-                            canEdit && h('button', {
-                              onClick: (e) => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                updateScore(playerId, hole, 'NR');
-                              },
-                              className: 'w-full bg-orange-500 text-white px-1 py-1 text-xs rounded hover:bg-orange-600 font-bold',
-                              title: 'Mark as No Return'
-                            }, 'NR')
-                          )
-                      );
-                    })
-                  )
-                )
+
+        // Navigation controls
+        h('div', { className: 'flex items-center justify-between mb-6 bg-gray-50 p-4 rounded-lg' },
+          h('button', {
+            onClick: () => setCurrentHoleView(Math.max(1, currentHoleView - 1)),
+            disabled: !canNavigatePrev,
+            className: `px-6 py-3 rounded-lg font-bold text-lg transition-all ${
+              canNavigatePrev
+                ? 'bg-green-700 text-white hover:bg-green-800'
+                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+            }`
+          }, '← Previous'),
+          h('div', { className: 'text-center' },
+            h('p', { className: 'text-sm text-gray-600' }, 'Viewing Hole'),
+            h('p', { className: 'text-2xl font-bold text-green-800' }, currentHole)
+          ),
+          h('button', {
+            onClick: () => setCurrentHoleView(Math.min(18, currentHoleView + 1)),
+            disabled: !canNavigateNext,
+            className: `px-6 py-3 rounded-lg font-bold text-lg transition-all ${
+              canNavigateNext
+                ? 'bg-green-700 text-white hover:bg-green-800'
+                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+            }`
+          }, 'Next →')
+        ),
+
+        // Player scores in table format
+        h('div', { className: 'overflow-x-auto' },
+          h('table', { className: 'w-full border-collapse' },
+            // Header row - Hole numbers and pars
+            h('thead', null,
+              h('tr', { className: 'border-b-2 border-gray-300' },
+                h('th', { className: 'p-3 text-left font-bold text-gray-700 sticky left-0 bg-white' }, 'Player'),
+                displayHoles.map(hole => {
+                  const holeData = courseHoles.find(h => h.hole === hole);
+                  const isPrevHole = hole === prevHole;
+                  const isCurrentHole = hole === currentHole;
+                  const isNextHole = hole === nextHole;
+                  return h('th', {
+                    key: hole,
+                    className: `p-3 text-center min-w-[120px] ${
+                      isCurrentHole ? 'bg-green-100' : isPrevHole ? 'bg-blue-50' : 'bg-gray-50'
+                    }`
+                  },
+                    h('div', { className: 'flex flex-col' },
+                      h('span', { className: 'text-lg font-bold' }, `Hole ${hole}`),
+                      h('span', { className: 'text-sm text-gray-600' }, `Par ${holeData?.par || '-'}`),
+                      h('span', { className: 'text-xs text-gray-500' }, `SI ${holeData?.strokeIndex || '-'}`)
+                    )
+                  );
+                })
               )
-            );
-          })
+            ),
+            // Player rows
+            h('tbody', null,
+              selectedGroup.player_ids?.map(playerId => {
+                const player = allPlayers.find(p => p.id === playerId);
+                if (!player) return null;
+                const playerScores = scores[playerId] || {};
+                const canEdit = userRole === 'admin' || (userRole === 'group' && selectedGroup.id === userGroupId);
+
+                return h('tr', {
+                  key: playerId,
+                  className: 'border-b border-gray-200 hover:bg-gray-50'
+                },
+                  h('td', { className: 'p-3 font-semibold sticky left-0 bg-white' },
+                    h('div', null,
+                      h('p', { className: 'font-bold' }, player.name),
+                      h('p', { className: 'text-sm text-gray-600' }, `HCP: ${player.handicap}`)
+                    )
+                  ),
+                  displayHoles.map(hole => {
+                    const holeData = courseHoles.find(h => h.hole === hole);
+                    const isNR = playerScores[hole] === 'NR';
+                    const isPrevHole = hole === prevHole;
+                    const isCurrentHole = hole === currentHole;
+                    const isNextHole = hole === nextHole;
+
+                    return h('td', {
+                      key: hole,
+                      className: `p-3 text-center ${
+                        isCurrentHole ? 'bg-green-100' : isPrevHole ? 'bg-blue-50' : 'bg-gray-50'
+                      }`
+                    },
+                      isNR ?
+                        h('div', { className: 'relative inline-block' },
+                          h('div', { className: 'border-2 border-orange-400 bg-orange-50 px-4 py-3 rounded-lg text-center font-bold text-orange-700' }, 'NR'),
+                          canEdit && h('button', {
+                            onClick: (e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              updateScore(playerId, hole, '');
+                            },
+                            className: 'absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 text-xs flex items-center justify-center hover:bg-red-600',
+                            title: 'Clear NR'
+                          }, '×')
+                        ) :
+                        h('div', { className: 'flex flex-col gap-2' },
+                          h('input', {
+                            type: 'number',
+                            value: playerScores[hole] || '',
+                            onChange: canEdit ? (e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              updateScore(playerId, hole, e.target.value);
+                            } : undefined,
+                            readOnly: !canEdit,
+                            className: `w-full border-2 border-gray-300 px-4 py-3 rounded-lg text-center text-lg font-bold ${
+                              !canEdit ? 'bg-gray-100 cursor-not-allowed' : 'focus:border-green-500 focus:ring-2 focus:ring-green-200'
+                            }`,
+                            placeholder: '-',
+                            min: '1',
+                            max: '15'
+                          }),
+                          canEdit && h('button', {
+                            onClick: (e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              updateScore(playerId, hole, 'NR');
+                            },
+                            className: 'w-full bg-orange-500 text-white px-2 py-1 text-sm rounded-lg hover:bg-orange-600 font-bold',
+                            title: 'Mark as No Return'
+                          }, 'NR')
+                        )
+                    );
+                  })
+                );
+              })
+            )
+          )
         )
       )
     );
@@ -2906,6 +2961,18 @@ function LegsOpenTournament() {
 
   const renderChangelogTab = () => {
     const changelog = [
+      {
+        version: '2.5.0',
+        date: '2025-01-10',
+        changes: [
+          'Redesigned score entry with simplified 3-column layout',
+          'Shows 3 holes at a time: previous (blue), current (green), next (gray)',
+          'Added Previous/Next navigation buttons for moving between holes',
+          'Auto-positions to last completed hole when selecting a group',
+          'Players displayed in rows with larger input fields for easier entry',
+          'Improved mobile and tablet scoring experience'
+        ]
+      },
       {
         version: '2.4.0',
         date: '2025-01-10',
