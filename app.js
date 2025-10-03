@@ -2075,6 +2075,7 @@ function LegsOpenTournament() {
                 if (!player) return null;
                 const playerScores = scores[playerId] || {};
                 const canEdit = userRole === 'admin' || (userRole === 'group' && selectedGroup.id === userGroupId);
+                const playingHandicap = calculatePlayingHandicap(player.handicap);
 
                 return h('tr', {
                   key: playerId,
@@ -2083,7 +2084,8 @@ function LegsOpenTournament() {
                   h('td', { className: 'p-3 font-semibold sticky left-0 bg-white' },
                     h('div', null,
                       h('p', { className: 'font-bold' }, player.name),
-                      h('p', { className: 'text-sm text-gray-600' }, `HCP: ${player.handicap}`)
+                      h('p', { className: 'text-sm text-gray-600' }, `HCP: ${player.handicap}`),
+                      h('p', { className: 'text-xs text-gray-500' }, `Playing: ${playingHandicap}`)
                     )
                   ),
                   displayHoles.map(hole => {
@@ -2092,6 +2094,15 @@ function LegsOpenTournament() {
                     const isPrevHole = hole === prevHole;
                     const isCurrentHole = hole === currentHole;
                     const isNextHole = hole === nextHole;
+
+                    // Calculate strokes received for this player on this hole
+                    let strokesReceived = 0;
+                    if (holeData) {
+                      const baseStrokes = Math.floor(playingHandicap / 18);
+                      const remainder = playingHandicap % 18;
+                      const extraStroke = (holeData.strokeIndex <= playingHandicap && holeData.strokeIndex <= remainder) ? 1 : 0;
+                      strokesReceived = baseStrokes + extraStroke;
+                    }
 
                     return h('td', {
                       key: hole,
@@ -2113,6 +2124,18 @@ function LegsOpenTournament() {
                           }, '×')
                         ) :
                         h('div', { className: 'flex flex-col gap-2' },
+                          // Stroke indicator dots
+                          strokesReceived > 0 && h('div', {
+                            className: 'flex justify-center gap-1 mb-1',
+                            title: `${strokesReceived} stroke${strokesReceived > 1 ? 's' : ''} received`
+                          },
+                            Array.from({ length: strokesReceived }).map((_, i) =>
+                              h('div', {
+                                key: i,
+                                className: 'w-2 h-2 rounded-full bg-red-500'
+                              })
+                            )
+                          ),
                           h('input', {
                             type: 'number',
                             value: playerScores[hole] || '',
@@ -2962,8 +2985,29 @@ function LegsOpenTournament() {
   const renderChangelogTab = () => {
     const changelog = [
       {
+        version: '2.7.0',
+        date: '2025-10-03',
+        changes: [
+          'Added Spectator Mode - view leaderboard without a PIN',
+          'Spectators get read-only access to the live leaderboard',
+          'New "Continue as Spectator" button on login screen',
+          'No PIN required for spectator access'
+        ]
+      },
+      {
+        version: '2.6.0',
+        date: '2025-10-03',
+        changes: [
+          'Added handicap stroke indicators - red dots show strokes received per hole',
+          'Displays playing handicap under each player name in score entry',
+          'Visual indicator makes it easy to see handicap allocation at a glance',
+          'Tooltip shows number of strokes when hovering over dots',
+          'Follows standard golf handicap distribution rules based on stroke index'
+        ]
+      },
+      {
         version: '2.5.0',
-        date: '2025-01-10',
+        date: '2025-10-03',
         changes: [
           'Redesigned score entry with simplified 3-column layout',
           'Shows 3 holes at a time: previous (blue), current (green), next (gray)',
@@ -3200,7 +3244,19 @@ function LegsOpenTournament() {
             className: 'w-full bg-green-700 text-white px-6 py-4 rounded-lg hover:bg-green-800 font-bold text-lg disabled:bg-gray-400 disabled:cursor-not-allowed'
           }, 'Enter')
         ),
-        h('div', { className: 'mt-6 text-center text-sm text-gray-500' },
+        h('div', { className: 'mt-6 pt-6 border-t border-gray-200' },
+          h('button', {
+            onClick: (e) => {
+              e.preventDefault();
+              setIsAuthenticated(true);
+              setUserRole('spectator');
+              setActiveTab('leaderboard');
+            },
+            className: 'w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 font-semibold'
+          }, 'Continue as Spectator'),
+          h('p', { className: 'text-xs text-gray-500 mt-2 text-center' }, 'View leaderboard only (no scoring)')
+        ),
+        h('div', { className: 'mt-4 text-center text-sm text-gray-500' },
           h('p', null, 'Group PINs are provided by tournament organizers')
         )
       )
@@ -3276,7 +3332,8 @@ function LegsOpenTournament() {
             (() => {
               const allTabs = ['leaderboard', 'tournaments', 'course', 'setup', 'scoring', 'players', 'history', 'admin-manual', 'changelog'];
               const groupTabs = ['leaderboard', 'scoring', 'scoring-manual'];
-              const visibleTabs = userRole === 'admin' ? allTabs : groupTabs;
+              const spectatorTabs = ['leaderboard'];
+              const visibleTabs = userRole === 'admin' ? allTabs : (userRole === 'spectator' ? spectatorTabs : groupTabs);
 
               const tabLabels = {
                 'leaderboard': 'Leaderboard',

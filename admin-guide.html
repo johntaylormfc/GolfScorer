@@ -494,14 +494,27 @@
                 <li>The system automatically positions to the last completed hole</li>
                 <li>View the 3-column table showing:
                     <ul>
-                        <li>Players in rows on the left</li>
+                        <li>Players in rows on the left with their handicap and playing handicap</li>
                         <li>3 holes as columns with par and stroke index</li>
+                        <li>Red dots above each score input showing handicap strokes received</li>
                     </ul>
                 </li>
                 <li>Enter scores by clicking in the input field and typing</li>
                 <li>Use the <strong>"Previous"</strong> and <strong>"Next"</strong> buttons to navigate between holes</li>
                 <li>Scores are automatically saved as you type</li>
             </ol>
+        </div>
+
+        <div class="step">
+            <h4>Handicap Stroke Indicators:</h4>
+            <p>Red dots appear above each score input to show handicap strokes:</p>
+            <ul>
+                <li><strong>Red dots:</strong> Each dot represents one handicap stroke the player receives on that hole</li>
+                <li><strong>Playing Handicap:</strong> Displayed under player name (slope-adjusted handicap)</li>
+                <li><strong>Hover tooltip:</strong> Shows "X stroke(s) received" for clarity</li>
+                <li><strong>Distribution:</strong> Strokes allocated based on hole's stroke index (difficulty)</li>
+            </ul>
+            <p><strong>Example:</strong> A player with playing handicap 20 gets 1 stroke on all 18 holes, plus an extra stroke on the 2 hardest holes (SI 1-2), shown as 2 dots.</p>
         </div>
 
         <div class="step">
